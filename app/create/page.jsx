@@ -6,6 +6,10 @@ import TopicInput from './_components/TopicInput'
 import {v4 as uuidv4} from 'uuid'
 import { useUser } from '@clerk/nextjs'
 import axios from 'axios'
+import { Loader } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+
 
 function Create() {
     const {user} = useUser();
@@ -13,6 +17,10 @@ function Create() {
     const [step, setStep] = useState(0);
 
     const [formData, setFormData] = useState([]);
+
+    const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const handleUserInput = (fieldName, fieldValue) => {
 
@@ -26,6 +34,7 @@ function Create() {
 
     const GenerateCourseOutline = async () => {
       const courseId = uuidv4();
+      setLoading(true);
       console.log({
         courseId,
         ...formData,
@@ -36,9 +45,14 @@ function Create() {
         courseId : courseId,
         ...formData,
         createdBy : user?.primaryEmailAddress?.emailAddress
-      }) 
+      });
 
-      console.log(result)
+      setLoading(false);
+      router.replace('/dashboard');
+      // toast notification
+      toast("Your course content is generating, Click on Refresh Button")
+
+      console.log(result.data.result.resp);
     }
 
   return (
@@ -57,7 +71,9 @@ function Create() {
       <div className='flex justify-between w-full mt-32'>
         {step != 0 ? <Button variant = "outline" onClick={()=>setStep(step-1)}>Previous</Button> : '-' }
         {step == 0 ?<Button onClick={() => setStep(step+1)}>Next</Button>
-        : <Button onClick={GenerateCourseOutline}>Generate</Button> }
+        : <Button onClick={GenerateCourseOutline} disabled = {loading}>
+         {loading ? <Loader className='animate-spin'/> : 'Generate'}
+          </Button> }
       </div>
     </div>
   )
