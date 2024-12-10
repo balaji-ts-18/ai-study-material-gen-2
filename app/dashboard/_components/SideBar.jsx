@@ -15,11 +15,11 @@ const SideBar = () => {
             icon: LayoutDashboard,
             path: '/dashboard'
         },
-        {
-            name: 'Upgrade',
-            icon: Shield,
-            path: '/dashboard/upgrade'
-        },
+        // {
+        //     name: 'Upgrade',
+        //     icon: Shield,
+        //     path: '/dashboard/upgrade'
+        // },
         {
             name: 'Profile',
             icon: UserCircle,
@@ -54,11 +54,11 @@ const SideBar = () => {
             </div>
 
             <div className='border p-3 bg-slate-100 rounded-lg absolute bottom-10 w-[90%]'>
-                <h2 className='text-lg mb-2'>Available Credits : 5</h2>
+                {/* <h2 className='text-lg mb-2'>Available Credits : 5</h2>
                 <Progress value={30} />
                 <h2 className='text-sm'>1 Out of 5 Credits used</h2>
 
-                <Link href = {"/dashboard/upgrade"} className='text-primary text-sm mt-3'>Upgrade to create more</Link>
+                <Link href = {"/dashboard/upgrade"} className='text-primary text-sm mt-3'>Upgrade to create more</Link> */}
             </div>
 
         </div>

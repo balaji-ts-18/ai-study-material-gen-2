@@ -18,6 +18,14 @@ const {
     maxOutputTokens: 8192,
     responseMimeType: "application/json",
   };
+
+  const generationConfig2 = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 40,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+  };
   
   
     export const courseOutlineAIModel = model.startChat({
@@ -65,6 +73,24 @@ const {
       // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
       // console.log(result.response.text());
     
+    
+      export const GenerateStudyTypeContentAiModel = model.startChat({
+        generationConfig,
+        history: [
+          {
+            role: "user",
+            parts: [
+              {text: "Generate the flashcard  on topic : Flutter fundamentals, user interface (ui) development basic app navigation in JSON format with front and back content, maximum 15"},
+            ],
+          },
+          {
+            role: "model",
+            parts: [
+              {text: "```json\n[\n  {\n    \"front\": \"What is a Widget in Flutter?\",\n    \"back\": \"A Widget is the fundamental building block of a Flutter UI.  Everything you see on the screen is a widget, whether it's a button, text, image, or even the layout itself.\"\n  },\n  {\n    \"front\": \"What are the two main types of widgets?\",\n    \"back\": \"StatelessWidget and StatefulWidget. StatelessWidgets don't change their state, while StatefulWidgets can update their appearance based on changes in data.\"\n  },\n  {\n    \"front\": \"Explain the difference between `Column` and `Row` widgets.\",\n    \"back\": \"`Column` arranges widgets vertically, one below the other. `Row` arranges widgets horizontally, side-by-side.\"\n  },\n  {\n    \"front\": \"What is the purpose of the `Scaffold` widget?\",\n    \"back\": \"Provides a basic visual layout structure for your app, including an AppBar, body, and potentially a bottomNavigationBar and floatingActionButton.\"\n  },\n  {\n    \"front\": \"How do you add text to a Flutter app?\",\n    \"back\": \"Using the `Text` widget.  You can specify style, text, and other properties within it.\"\n  },\n  {\n    \"front\": \"What is the `Container` widget used for?\",\n    \"back\": \"Provides a box with padding, margin, background color, borders, and other visual customizations for its child widget(s).\"\n  },\n  {\n    \"front\": \"How to create a basic button in Flutter?\",\n    \"back\": \"Use the `ElevatedButton`, `TextButton`, or `OutlinedButton` widget.  They all take an `onPressed` callback function.\"\n  },\n  {\n    \"front\": \"What is the role of `BuildContext`?\",\n    \"back\": \"Provides information about the location of a widget within the widget tree. Used for accessing themes, services, and other contextual information.\"\n  },\n  {\n    \"front\": \"Name a common way to navigate between screens in Flutter.\",\n    \"back\": \"Using `Navigator.push` to push a new route onto the navigation stack and `Navigator.pop` to remove a route.\"\n  },\n  {\n    \"front\": \"What is a Material App?\",\n    \"back\": \"A widget that provides a Material Design implementation, including a theme and other built-in features for creating Android-style apps.\"\n  },\n  {\n    \"front\": \"What is a Cupertino App?\",\n    \"back\": \"A widget that provides a Cupertino (iOS-style) implementation, including a theme and other built-in features for creating iOS-style apps.\"\n  },\n  {\n    \"front\": \"Explain the concept of routing in Flutter.\",\n    \"back\": \"Routing defines how different screens (routes) are managed and transitioned between in an application, often using named routes.\"\n  },\n  {\n    \"front\": \"How do you define named routes?\",\n    \"back\": \"Using the `routes` property in the `MaterialApp` or `CupertinoApp` widget, associating route names with widget builders.\"\n  },\n  {\n    \"front\": \"What is `setState()` used for?\",\n    \"back\": \"In a StatefulWidget, `setState()` is used to rebuild the widget tree, reflecting changes in the widget's state.\"\n  },\n  {\n    \"front\": \"What is the purpose of `Key` widgets?\",\n    \"back\": \"Keys help Flutter identify widgets across rebuilds, ensuring state preservation even when the widget's position in the tree changes.\"\n  }\n]\n```\n"},
+            ],
+          },
+        ],
+      });
     
    
   

@@ -1,7 +1,7 @@
 import { inngest } from "./client";
 import { db } from '@/configs/db';
-import { CHAPTER_NOTES_TABLE, STUDY_MATERIAL_TABLE, USER_TABLE } from "@/configs/schema";
-import { generateNotesAIModel } from "@/configs/AiModel";
+import { CHAPTER_NOTES_TABLE, STUDY_MATERIAL_TABLE, STUDY_TYPE_CONTENT, USER_TABLE } from "@/configs/schema";
+import { generateNotesAIModel, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
 import { eq } from "drizzle-orm";
 
 export const helloWorld = inngest.createFunction(
@@ -55,6 +55,9 @@ export const GenerateNotes = inngest.createFunction(
                 const result = await generateNotesAIModel.sendMessage(PROMPT);
                 const aiResp = result.response.text();
 
+                console.log("this is ai response in text" + aiResp);
+                console.log("this is actuall ai result " + result);
+
                 await db.insert(CHAPTER_NOTES_TABLE).values({
                     chapterId : index,
                     courseId : course?.courseId,
@@ -75,4 +78,33 @@ export const GenerateNotes = inngest.createFunction(
         });
 
     }
+)
+
+// generate flashcards , quiz 
+export const GenerateStudyTypeContent = inngest.createFunction(
+    {id : 'Generate Study Type Content'},
+    {event : 'studyType.content'},
+
+    async({event, step}) => {
+        const {studyType, prompt, courseId, recordId} = event.data;
+
+        const FlashcardAiResult = await step.run('Generating Flashcards using AI', async() => {
+            const result = await GenerateStudyTypeContentAiModel.sendMessage(prompt);
+
+            const AIResult = JSON.parse(result.response.text());
+            return AIResult
+        })
+
+        // save the result
+
+        const DbResult = await step.run('Save the resutl to db', async()=> {
+            const result = await db.update(STUDY_TYPE_CONTENT)
+            .set({
+                content : FlashcardAiResult
+            }).where(eq(STUDY_TYPE_CONTENT.id, recordId))
+            
+
+            return 'Data Inserted'
+        })
+    } 
 )
