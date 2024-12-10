@@ -18,7 +18,7 @@ export async function POST(req) {
 
     // trigger inggest function
 
-    inngest.send({
+    const inngestResult = await inngest.send({
          name : 'studyType.content',
          data : {
             studyType : type,
@@ -26,7 +26,9 @@ export async function POST(req) {
             courseId : courseId,
             recordId : result[0].id
          }
-    })
+    });
+
+    console.log(inngestResult);
 
     return NextResponse.json(result[0].id)
 }

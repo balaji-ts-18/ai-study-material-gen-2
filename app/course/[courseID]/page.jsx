@@ -32,7 +32,7 @@ function Course() {
                 <CourseIntroCard course={course} />
 
                 {/* study material options */}
-                <StudyMaterialSection courseId={courseID} />
+                <StudyMaterialSection courseId={courseID} course={course} />
 
 
                 {/* chapter list */}
