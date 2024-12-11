@@ -1,7 +1,7 @@
 import { inngest } from "./client";
 import { db } from '@/configs/db';
 import { CHAPTER_NOTES_TABLE, STUDY_MATERIAL_TABLE, STUDY_TYPE_CONTENT, USER_TABLE } from "@/configs/schema";
-import { generateNotesAIModel, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
+import { generateNotesAIModel, GenerateQuizAiModel, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
 import { eq } from "drizzle-orm";
 
 export const helloWorld = inngest.createFunction(
@@ -87,8 +87,13 @@ export const GenerateStudyTypeContent = inngest.createFunction(
     async({event, step}) => {
         const {studyType, prompt, courseId, recordId} = event.data;
 
-        const FlashcardAiResult = await step.run('Generating Flashcards using AI', async() => {
-            const result = await GenerateStudyTypeContentAiModel.sendMessage(prompt);
+        
+
+        const AiResult = await step.run('Generating Flashcards using AI', async() => {
+            const result = 
+            studyType == 'FlashCards' ?
+            await GenerateStudyTypeContentAiModel.sendMessage(prompt) :
+            await GenerateQuizAiModel.sendMessage(prompt);
 
             const AIResult = JSON.parse(result.response.text());
             console.log(AIResult);
@@ -98,19 +103,20 @@ export const GenerateStudyTypeContent = inngest.createFunction(
         // save the result
 
         const DbResult = await step.run('Save the resutl to db', async()=> {
-            // const result = await db.update(STUDY_TYPE_CONTENT)
-            // .set({
-            //     content : FlashcardAiResult
-            // }).where(eq(STUDY_TYPE_CONTENT.courseId, courseId))
-            // .where(eq(STUDY_TYPE_CONTENT.type, studyType))
+            const result = await db.update(STUDY_TYPE_CONTENT)
+            .set({
+                content : AiResult,
+                status : 'ready'
+            }).where(eq(STUDY_TYPE_CONTENT.id, recordId))
+            
 
-            const result = await db.insert(STUDY_TYPE_CONTENT)
-            .values({
-                courseId : courseId,
-                content : FlashcardAiResult,
-                type : studyType,
+            // const result = await db.insert(STUDY_TYPE_CONTENT)
+            // .values({
+            //     courseId : courseId,
+            //     content : FlashcardAiResult,
+            //     type : studyType,
                 
-            })
+            // })
             
 
             return 'Data Inserted'

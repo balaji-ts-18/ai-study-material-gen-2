@@ -91,6 +91,24 @@ const {
           },
         ],
       });
+
+      export const GenerateQuizAiModel = model.startChat({
+        generationConfig,
+        history: [
+          {
+            role: "user",
+            parts: [
+              {text: "Generate Quiz on topic : Flutter Fundamentals, User Interface (ui) Development, Basic App Navigation with Question and Options along with correct answer in JSON format"},
+            ],
+          },
+          {
+            role: "model",
+            parts: [
+              {text: "```json\n{\n  \"quizTitle\": \"Flutter Fundamentals & UI Development Quiz\",\n  \"questions\": [\n    {\n      \"question\": \"What is the fundamental building block of a Flutter UI?\",\n      \"options\": [\"Widget\", \"Layout\", \"Function\", \"Class\"],\n      \"correctAnswer\": \"Widget\"\n    },\n    {\n      \"question\": \"Which widget is used to arrange children in a column?\",\n      \"options\": [\"Row\", \"Column\", \"Stack\", \"Container\"],\n      \"correctAnswer\": \"Column\"\n    },\n    {\n      \"question\": \"What is the purpose of the `Scaffold` widget?\",\n      \"options\": [\"To create complex animations\", \"To manage the app's state\", \"To provide a basic visual structure for an app screen\", \"To handle network requests\"],\n      \"correctAnswer\": \"To provide a basic visual structure for an app screen\"\n    },\n    {\n      \"question\": \"Which widget is best suited for displaying a list of items that can be scrolled?\",\n      \"options\": [\"ListView\", \"GridView\", \"Container\", \"Row\"],\n      \"correctAnswer\": \"ListView\"\n    },\n    {\n      \"question\": \"How do you navigate from one screen to another in Flutter using named routes?\",\n      \"options\": [\"`Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));`\", \"`Navigator.pop(context);`\", \"`Navigator.pushNamed(context, '/nextScreen');`\", \"All of the above\"],\n      \"correctAnswer\": \"`Navigator.pushNamed(context, '/nextScreen');`\"\n    },\n    {\n      \"question\": \"What is the role of a `BuildContext` in Flutter?\",\n      \"options\": [\"To store app data\", \"To manage the app's theme\", \"To provide information about the location of a widget within the widget tree\", \"To handle user input\"],\n      \"correctAnswer\": \"To provide information about the location of a widget within the widget tree\"\n    },\n    {\n      \"question\": \"Which widget is used to display an image in Flutter?\",\n      \"options\": [\"Image.asset\", \"Image.network\", \"Icon\", \"Text\"],\n      \"correctAnswer\": \"Image.asset\"\n    },\n    {\n      \"question\": \"What does `setState()` do in Flutter?\",\n      \"options\": [\"Navigates to a new screen\", \"Updates the UI to reflect changes in the state\", \"Handles user input\", \"Makes a network request\"],\n      \"correctAnswer\": \"Updates the UI to reflect changes in the state\"\n    },\n    {\n      \"question\": \"Which widget is used to create a button in Flutter?\",\n      \"options\": [\"TextButton\", \"ElevatedButton\", \"IconButton\", \"All of the above\"],\n      \"correctAnswer\": \"All of the above\"\n    },\n    {\n      \"question\": \"What is the difference between `StatelessWidget` and `StatefulWidget`?\",\n      \"options\": [\"`StatelessWidget` has a mutable state, while `StatefulWidget` does not.\", \"`StatefulWidget` has a mutable state, while `StatelessWidget` does not.\", \"They are essentially the same.\", \"There is no difference.\"],\n      \"correctAnswer\": \"`StatefulWidget` has a mutable state, while `StatelessWidget` does not.\"\n    }\n  ]\n}\n```\n"},
+            ],
+          },
+        ],
+      });
     
    
   

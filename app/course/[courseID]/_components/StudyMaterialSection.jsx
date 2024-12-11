@@ -48,6 +48,8 @@ function StudyMaterialSection({courseId, course}) {
 
         console.log(result?.data)
         setStudyTypeContent(result.data);
+
+        console.log("did i got called")
     }
 
     useEffect(() => {
@@ -64,8 +66,9 @@ function StudyMaterialSection({courseId, course}) {
                 <MaterialCardItem key = {index} item={item}
                     studyTypeContent = {studyTypeContent}
                     course = {course}
+                    refreshData = {GetStudyMaterial}
                 />
-                //</Link>
+               // </Link>
                 
             ))}
         </div>

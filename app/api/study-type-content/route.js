@@ -6,7 +6,11 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     const {chapters, courseId, type} = await req.json();
 
-    const PROMPT = 'Generate the flashcard  on topic :' + chapters + '  in JSON format with front and back content, maximum 15'
+    
+
+    const PROMPT = type == 'FlashCards' ?
+    'Generate the flashcard  on topic :' + chapters + '  in JSON format with front and back content, maximum 15' :
+    'Generate Quiz on topic : ' + chapters + ' with Question and Options along with correct answer in JSON format'
 
     //insert record to db
     const result = await db.insert(STUDY_TYPE_CONTENT).values({
@@ -28,7 +32,7 @@ export async function POST(req) {
          }
     });
 
-    console.log(inngestResult);
+    //console.log(inngestResult);
 
     return NextResponse.json(result[0].id)
 }
