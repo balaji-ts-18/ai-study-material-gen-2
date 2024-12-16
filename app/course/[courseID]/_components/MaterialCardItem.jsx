@@ -1,3 +1,4 @@
+'use client'
 import clsx from 'clsx';
 import { Button } from '@/components/ui/button';
 import { RefreshCcw } from 'lucide-react';
@@ -6,9 +7,12 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import axios from 'axios';
+import { useParams } from 'next/navigation';
 
 function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
   const [loading, setLoading] = useState(false);
+
+  const {courseID} = useParams();
 
   const GenerateContent = async () => {
     toast('Generating your content')
@@ -18,9 +22,9 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
     course?.courseLayout.chapters.forEach((chapter) => {
       chapters = (chapter.chapterTitle || chapter.chapter_title) + ',' + chapters;
     });
-
+    //console.log('kakka  ', course);
     await axios.post('/api/study-type-content', {
-      courseId: course.courseId,
+      courseId: courseID,
       type: item.name,
       chapters,
     });
@@ -30,9 +34,10 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
     toast('Your content is ready to view')
   };
 
-  useEffect(() => {
-    console.log('studyTypeContent in MaterialCardItem updated:', studyTypeContent);
-  }, [studyTypeContent]);
+  // useEffect(() => {
+  //   console.log('kakkas  ', course);
+  //   console.log('studyTypeContent in MaterialCardItem updated:', studyTypeContent);
+  // }, [studyTypeContent]);
 
   const isReady = Array.isArray(studyTypeContent?.[item.type])
     ? studyTypeContent[item.type].length > 0

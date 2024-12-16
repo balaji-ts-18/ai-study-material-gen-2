@@ -1,58 +1,46 @@
 import { db } from "@/configs/db";
 import { CHAPTER_NOTES_TABLE, STUDY_TYPE_CONTENT } from "@/configs/schema";
-import { ConsoleLogWriter, eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-    
-    const {courseId, studyType} = await req.json();
+    const { courseId, studyType } = await req.json();
 
-    if(studyType == 'ALL')
-    {
+    if (studyType === 'ALL') {
         const notes = await db.select().from(CHAPTER_NOTES_TABLE)
-        .where(eq(CHAPTER_NOTES_TABLE?.courseId, courseId))
+            .where(eq(CHAPTER_NOTES_TABLE?.courseId, courseId));
 
-        // get the all other study type records
-
-        const contentList = await  db.select().from(STUDY_TYPE_CONTENT)
-        .where(eq(STUDY_TYPE_CONTENT?.courseId, courseId))
+        const contentList = await db.select().from(STUDY_TYPE_CONTENT)
+            .where(eq(STUDY_TYPE_CONTENT?.courseId, courseId));
 
         const result = {
-            notes : notes,
-            flashcard : contentList?.filter(item=>item.type == 'FlashCards'),
-            quiz : contentList?.filter(item=>item.type == 'Quiz'),
-            qa : contentList?.filter(item=>item.type == 'Question/Answer'),
-        } 
+            notes: notes,
+            flashcard: contentList?.find(item => item.type === 'FlashCards'),
+            quiz: contentList?.filter(item => item.type === 'Quiz'),
+            qa: contentList?.filter(item => item.type === 'Question/Answer'),
+        };
 
-        //console.log('rana ', contentList);
-
+        console.log('ALL data:', result);
         return NextResponse.json(result);
-    }
+    } else if (studyType === 'notes') {
+        const notes = await db.select().from(CHAPTER_NOTES_TABLE)
+            .where(eq(CHAPTER_NOTES_TABLE?.courseId, courseId));
 
-    else if(studyType == 'notes')
-    {
-        const result = await db.select().from(CHAPTER_NOTES_TABLE)
-        .where(eq(CHAPTER_NOTES_TABLE?.courseId, courseId))
-
-        //console.log(result);
-
-        return NextResponse.json(result);
-
-    }
-    else {
-
+        console.log('Notes:', notes);
+        return NextResponse.json({ notes });
+    } else {
         try {
-            const result = await db.select().from(STUDY_TYPE_CONTENT)
-            .where(eq(STUDY_TYPE_CONTENT?.courseId, courseId))
-            .where(eq(STUDY_TYPE_CONTENT?.type, studyType))
+            const content = await db.select().from(STUDY_TYPE_CONTENT)
+                .where(and(
+                    eq(STUDY_TYPE_CONTENT?.courseId, courseId),
+                    eq(STUDY_TYPE_CONTENT?.type, studyType)
+                ));
 
-            //console.log(result);
-
-            return NextResponse.json(result[0]);
-
+            console.log('Single content:', content[0]);
+            return NextResponse.json(content[0]); // Return the first match directly.
         } catch (error) {
-            console.log(error)
+            console.error('Error fetching content:', error);
+            return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
         }
-        
     }
 }

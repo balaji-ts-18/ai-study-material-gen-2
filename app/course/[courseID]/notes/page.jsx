@@ -23,7 +23,7 @@ function ViewNotes() {
         });
 
         console.log(result?.data);
-        setNotes(result?.data);
+        setNotes(result?.data?.notes);
         
     }
 
