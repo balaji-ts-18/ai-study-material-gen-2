@@ -9,9 +9,9 @@ function CourseIntroCard({course}) {
       <div>
         <h2 className='font-bold text-2xl'>{course?.topic}</h2>
         <p>{course?.courseLayout?.courseSummary}</p>
-        <Progress className='mt-3' />
+        {/* <Progress className='mt-3' /> */}
 
-        <h2 className='mt-3 text-lg text-primary'>Total Chapters : {course?.courseLayout?.chapters.length}</h2>
+        {/* <h2 className='mt-3 text-lg text-primary'>Total Chapters : {course?.courseLayout?.chapters.length}</h2> */}
       </div>
     </div>
   )

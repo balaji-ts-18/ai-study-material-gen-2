@@ -32,13 +32,26 @@ const SideBar = () => {
     return (
         <div className='h-screen shadow-md p-5'>
             <div className='flex gap-2 items-center'>
-                <Image src={'/logo.svg'} alt='logo' width={40} height={40} />
-                <h2 className='font-bold text-2xl'>Easy Study</h2>
+                <Image src={'/logo.png'} alt='logo' width={200}
+
+                    height={120}
+
+                    className="w-[200px] max-w-full h-auto md:w-[200px] sm:w-[150px] max-[425px]:w-[120px]"
+
+                    style={{
+
+                        filter:
+
+                            "brightness(0) saturate(100%) invert(88%) sepia(40%) saturate(800%) hue-rotate(38deg) brightness(130%) contrast(115%)",
+
+                    }}
+                />
+                
             </div>
 
             <div className='mt-10'>
                 <Link href='/create' className="w-full">
-                <Button className="w-full">+ Create New</Button>
+                    <Button className="w-full">+ Create New</Button>
                 </Link>
 
 
