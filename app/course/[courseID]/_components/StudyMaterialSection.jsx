@@ -29,13 +29,13 @@ function StudyMaterialSection({courseId, course}) {
             path : '/quiz',
             type : 'quiz'
         },
-        {
-            name : 'Question/Answer',
-            desc : 'Help to practice your learning',
-            icon : '/qa.png',
-            path : '/qa',
-            type : 'qa'
-        }
+        // {
+        //     name : 'Question/Answer',
+        //     desc : 'Help to practice your learning',
+        //     icon : '/qa.png',
+        //     path : '/qa',
+        //     type : 'qa'
+        // }
     ]
 
     

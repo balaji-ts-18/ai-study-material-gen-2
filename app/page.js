@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <h3>
-        fuk u
+        go to /dashboard
       </h3>
 
       <UserButton/>
