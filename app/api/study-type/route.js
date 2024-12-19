@@ -26,7 +26,7 @@ export async function POST(req) {
         const notes = await db.select().from(CHAPTER_NOTES_TABLE)
             .where(eq(CHAPTER_NOTES_TABLE?.courseId, courseId));
 
-        console.log('Notes:', notes);
+        console.log('Notes: Aaj ki raat ', notes);
         return NextResponse.json({ notes });
     } else {
         try {
