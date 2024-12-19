@@ -11,7 +11,7 @@ function WelcomeBanner() {
 
       <div>
         <h2 className='font-bold text-3xl'>Hello, {user?.fullName} </h2>
-        <p>Mini Project </p>
+        <p>Ready to Prepare Again!</p>
       </div>
 
     </div>
