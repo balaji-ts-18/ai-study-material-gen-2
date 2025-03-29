@@ -73,7 +73,7 @@ const SideBar = () => {
                 {/* <h2 className='text-lg mb-2'>Available Credits : 5</h2>
                 <Progress value={30} />
                 <h2 className='text-sm'>1 Out of 5 Credits used</h2>
-
+                            hello
                 <Link href = {"/dashboard/upgrade"} className='text-primary text-sm mt-3'>Upgrade to create more</Link> */}
             </div>
 
