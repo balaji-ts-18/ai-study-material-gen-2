@@ -11,7 +11,7 @@ function CourseCardItem({course}) {
       <div>
         <div className='flex justify-between items-center'>
             <Image src={'/exam.png'} width={50} height={50} alt = "other"/>
-            <h2 className='text-[10px] p-1 px-2 rounded-full bg-blue-600 text-white'>12 Feb 2024</h2>
+            {/* <h2 className='text-[10px] p-1 px-2 rounded-full bg-black text-white'>12 Feb 2024</h2> */}
         </div>
         <h2 className='mt-3 font-medium text-lg'>{course?.topic}</h2>
         <p className='text-sm line-clamp-2 text-gray-500 mt-2'> {course?.courseLayout?.courseSummary} </p>

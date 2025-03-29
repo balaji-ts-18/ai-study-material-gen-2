@@ -5,7 +5,6 @@ import { ClerkProvider } from '@clerk/nextjs';
 import Provider from "./provider";
 import { Toaster } from "@/components/ui/sonner";
 
-
 export const metadata = {
   title: "PreparationAI",
   description: "A platform to prepare with the help of AI, smart way to study",
@@ -17,13 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={outfit.className}
-        >
+        <body className={`${outfit.className} bg-[#12120d] text-white min-h-screen`}>
           <Provider>
-        {children}
+            {children}
           </Provider>
-          <Toaster/>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

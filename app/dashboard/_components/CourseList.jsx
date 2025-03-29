@@ -28,7 +28,7 @@ function CourseList() {
   return (
     <div className='mt-10'>
       <h2 className='font-bold text-2xl flex justify-between items-center'>Your Study Material
-        <Button variant = 'outline' className='border-primary'
+        <Button variant = 'outline' className='border-primary bg-black text-white'
         onClick={GetCourseList}> <RefreshCw/> Refresh</Button>
       </h2>
 

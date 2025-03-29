@@ -33,7 +33,7 @@ function StudyMaterialSection({courseId, course}) {
         //     name : 'Question/Answer',
         //     desc : 'Help to practice your learning',
         //     icon : '/qa.png',
-        //     path : '/qa',
+        //     path : '/qa',y
         //     type : 'qa'
         // }
     ]

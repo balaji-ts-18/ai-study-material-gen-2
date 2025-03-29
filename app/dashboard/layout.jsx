@@ -4,7 +4,7 @@ import SideBar from './_components/SideBar'
 
 function DashboardLayout({ children }) {
     return (
-        <div>
+        <div className='bg-[#12120d] text-white'>
             <div className='md:w-64 hidden md:block fixed'>
                 <SideBar />
             </div>

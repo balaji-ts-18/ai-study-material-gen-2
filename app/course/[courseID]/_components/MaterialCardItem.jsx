@@ -65,11 +65,11 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
       <p className="text-gray-500 text-sm text-center">{item.desc}</p>
 
       {isReady ? (
-        <Button className="mt-3 w-full" variant="outline">
+        <Button className="mt-3 w-full " variant="outline">
           View
         </Button>
       ) : (
-        <Button className="mt-3 w-full" variant="outline" onClick={GenerateContent}>
+        <Button className="mt-3 w-full black" variant="outline" onClick={GenerateContent}>
           {loading && <RefreshCcw className="animate-spin" />}
           Generate
         </Button>

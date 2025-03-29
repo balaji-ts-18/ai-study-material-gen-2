@@ -31,7 +31,7 @@ function ViewNotes() {
     return (
         <div className="container mx-auto px-4 py-8">
             {notes.length > 0 ? (
-                <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="bg-[#12120d] text-white rounded-lg shadow-md p-6">
                     {/* Navigation Buttons */}
                     <div className="flex justify-between items-center mb-6">
                         <Button
