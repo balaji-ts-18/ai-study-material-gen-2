@@ -69,7 +69,7 @@ const SideBar = () => {
                 </div>
             </div>
 
-            <div className='border p-3 bg-slate-100 rounded-lg absolute bottom-10 w-[90%]'>
+            <div className=' p-3 bg-[#12120d]  rounded-lg absolute bottom-10 w-[90%]'>
                 {/* <h2 className='text-lg mb-2'>Available Credits : 5</h2>
                 <Progress value={30} />
                 <h2 className='text-sm'>1 Out of 5 Credits used</h2>
