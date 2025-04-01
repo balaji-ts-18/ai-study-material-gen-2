@@ -3,26 +3,26 @@ import clsx from 'clsx';
 import { Button } from '@/components/ui/button';
 import { RefreshCcw } from 'lucide-react';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'sonner';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 
 function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
   const [loading, setLoading] = useState(false);
-
-  const {courseID} = useParams();
+  const router = useRouter();
+  const { courseID } = useParams();
 
   const GenerateContent = async () => {
-    toast('Generating your content')
+    toast('Generating your content...');
     setLoading(true);
 
     let chapters = '';
     course?.courseLayout.chapters.forEach((chapter) => {
       chapters = (chapter.chapterTitle || chapter.chapter_title) + ',' + chapters;
     });
-    //console.log('kakka  ', course);
+
     await axios.post('/api/study-type-content', {
       courseId: courseID,
       type: item.name,
@@ -31,20 +31,14 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
 
     setLoading(false);
     refreshData(true);
-    toast('Your content is ready to view')
+    toast('Your content is ready to view');
   };
-
-  // useEffect(() => {
-  //   console.log('kakkas  ', course);
-  //   console.log('studyTypeContent in MaterialCardItem updated:', studyTypeContent);
-  // }, [studyTypeContent]);
 
   const isReady = Array.isArray(studyTypeContent?.[item.type])
     ? studyTypeContent[item.type].length > 0
     : !!studyTypeContent?.[item.type];
 
   return (
-    <Link href={'/course/'+course?.courseId+item.path}>
     <div
       className={clsx(
         'border shadow-md rounded-lg p-5 flex flex-col items-center',
@@ -65,18 +59,25 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
       <p className="text-gray-500 text-sm text-center">{item.desc}</p>
 
       {isReady ? (
-        <Button className="mt-3 w-full " variant="outline">
+        <Button
+          className="mt-3 w-full"
+          variant="outline"
+          onClick={() => router.push(`/course/${course?.courseId}${item.path}`)}
+        >
           View
         </Button>
       ) : (
-        <Button className="mt-3 w-full black" variant="outline" onClick={GenerateContent}>
-          {loading && <RefreshCcw className="animate-spin" />}
+        <Button
+          className="mt-3 w-full"
+          variant="outline"
+          onClick={GenerateContent}
+          disabled={loading}
+        >
+          {loading && <RefreshCcw className="animate-spin mr-2" />}
           Generate
         </Button>
       )}
     </div>
-    </Link>
-    
   );
 }
 
