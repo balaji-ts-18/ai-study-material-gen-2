@@ -26,3 +26,21 @@ export async function GET(req) {
     return NextResponse.json({result : course[0]})
 
 }
+
+export async function DELETE(req) {
+    try {
+        const { courseId } = await req.json();
+
+        if (!courseId) {
+            return NextResponse.json({ error: "Course ID is required" }, { status: 400 });
+        }
+
+        await db.delete(STUDY_MATERIAL_TABLE)
+            .where(eq(STUDY_MATERIAL_TABLE.courseId, courseId));
+
+        return NextResponse.json({ success: true, message: "Course deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting course:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+}
